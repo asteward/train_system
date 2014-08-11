@@ -18,4 +18,8 @@ class Station
     end
     stations
   end
+
+  def ==(another_station)
+    self.name == another_station.name
+  end
 end

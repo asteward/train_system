@@ -25,4 +25,14 @@ describe 'Station' do
       expect(Station.all).to eq [new_station, new_station2]
     end
   end
+
+  describe '==' do
+    it 'compares two train stations to see if they are the same' do
+        new_station = Line.new({:name => "15th & Pollock St Station"})
+        new_station.save
+        new_station2 = Line.new({:name => "15th & Pollock St Station"})
+        new_station2.save
+        expect(new_station.==(new_station2)).to eq true
+    end
+  end
 end
