@@ -22,4 +22,8 @@ class Station
   def ==(another_station)
     self.name == another_station.name
   end
+
+  def add_station_line(line_id)
+    DB.exec("INSERT INTO train_line (station_id, line_id) VALUES ('#{self.id}', #{line_id});")
+  end
 end
