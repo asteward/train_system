@@ -37,7 +37,9 @@ def main_menu
   puts '2 > Add New Train Line'
   puts '3 > Find Stations on a Train Line'
   puts '4 > Find Lines that stop at a particular Station'
-  puts '5 > Exit Program'
+  puts '5 > List all Stations'
+  puts '6 > List all Train Lines'
+  puts '7 > Exit Program'
   choice = gets.chomp
   case(choice)
   when '1'
@@ -49,6 +51,10 @@ def main_menu
   when '4'
     search_by_station
   when '5'
+    list_stations
+  when '6'
+    list_lines
+  when '7'
     exit
   else
     puts "You have accessed the secret menu... Just kidding. Try again!"
@@ -57,4 +63,13 @@ def main_menu
   main_menu
 end
 
+def add_station
+  header
+  puts "Enter a station name to add:"
+  station_name = gets.chomp.capitalize
+  new_station = Station.new({:name => station_name})
+  new_station.save
+  puts "  #{station_name} added!"
+  sleep 2
+end
 faux_loader
