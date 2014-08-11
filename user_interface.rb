@@ -93,4 +93,15 @@ def list_stations
   puts "\nPress ENTER to continue..."
   gets
 end
+
+def list_lines
+  header
+  puts "All Train Lines:"
+  lines = Line.all
+  lines.each do |line|
+    puts "  #{line.id}) #{line.name}"
+  end
+  puts "\nPress ENTER to continue..."
+  gets
+end
 faux_loader
