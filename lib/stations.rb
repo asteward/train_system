@@ -24,6 +24,18 @@ class Station
   end
 
   def add_station_line(line_id)
-    DB.exec("INSERT INTO train_line (station_id, line_id) VALUES ('#{self.id}', #{line_id});")
+    DB.exec("INSERT INTO station_line (station_id, line_id) VALUES ('#{self.id}', #{line_id});")
+  end
+
+  def self.list_stations(line_id)
+    line_stops = []
+    results = DB.exec("SELECT station.* FROM
+      line JOIN station_line ON (line.id = station_line.line_id)
+            JOIN station ON (station_line.station_id = station.id)
+      WHERE line.id = #{line_id};")
+    results.each do |result|
+      line_stops << Station.new({:id => result['id'].to_i, :name => result['name']})
+    end
+    line_stops
   end
 end

@@ -43,7 +43,23 @@ describe 'Station' do
       new_line = Line.new({:name => "15th ST Express"})
       new_line.save
       new_station.add_station_line(new_line.id)
-      expect(Station.station_list("Portland Express")).to eq [new_station, new_station2]
+      expect(Station.list_stations(new_line.id)).to eq [new_station]
+    end
+  end
+  describe '.station_list' do
+    it 'returns all of the stations on a given line' do
+      new_station = Station.new({:name => "15th & Pollock St Station"})
+      new_station2 = Station.new({:name => "Market Plaza"})
+      new_station.save
+      new_station2.save
+      new_line = Line.new({:name => "15th ST Express"})
+      new_line2 = Line.new({:name => "HWY 99 Line"})
+      new_line.save
+      new_line2.save
+      new_station.add_station_line(new_line.id)
+      new_station.add_station_line(new_line2.id)
+      new_station2.add_station_line(new_line.id)
+      expect(Station.list_stations(new_line.id)).to eq [new_station, new_station2]
     end
   end
 end
