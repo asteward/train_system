@@ -82,4 +82,15 @@ def add_line
   puts "  #{line_name} added!"
   sleep 2
 end
+
+def list_stations
+  header
+  puts "All Stations:"
+  stations = Station.all
+  stations.each do |station|
+    puts "  #{station.id}) #{station.name}"
+  end
+  puts "\nPress ENTER to continue..."
+  gets
+end
 faux_loader
