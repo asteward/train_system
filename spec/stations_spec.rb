@@ -7,4 +7,12 @@ describe 'Station' do
       expect(new_station).to be_a Station
     end
   end
+
+  describe 'save' do
+    it 'saves a station to the database' do
+      new_station = Station.new({:name => "15th & Pollock St Station"})
+      new_station.save
+      expect(Station.all).to eq [new_station]
+    end
+  end
 end
