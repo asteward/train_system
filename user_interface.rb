@@ -72,4 +72,14 @@ def add_station
   puts "  #{station_name} added!"
   sleep 2
 end
+
+def add_line
+  header
+  puts "Enter a train line name to add:"
+  line_name = gets.chomp.capitalize
+  new_line = Line.new({:name => line_name})
+  new_line.save
+  puts "  #{line_name} added!"
+  sleep 2
+end
 faux_loader
