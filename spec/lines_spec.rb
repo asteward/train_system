@@ -25,4 +25,14 @@ describe 'Line' do
       expect(Line.all).to eq [new_line, new_line2]
     end
   end
+
+  describe '==' do
+    it 'compares two train lines to see if they are the same' do
+        new_line = Line.new({:name => "15th ST Express"})
+        new_line.save
+        new_line2 = Line.new({:name => "15th ST Express"})
+        new_line2.save
+        expect(new_line.==(new_line2)).to eq true
+    end
+  end
 end

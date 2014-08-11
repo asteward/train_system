@@ -18,4 +18,8 @@ class Line
     end
     lines
   end
+
+  def ==(another_line)
+    self.name == another_line.name
+  end
 end
