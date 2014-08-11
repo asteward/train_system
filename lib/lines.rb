@@ -22,4 +22,16 @@ class Line
   def ==(another_line)
     self.name == another_line.name
   end
+
+  def self.list_lines(station_id)
+    lines = []
+    results = DB.exec("SELECT line.* FROM
+      station JOIN station_line ON (station.id = station_line.station_id)
+            JOIN line ON (station_line.line_id = line.id)
+      WHERE station.id = #{station_id};")
+    results.each do |result|
+      lines << Line.new({:id => result['id'].to_i, :name => result['name']})
+    end
+    lines
+  end
 end

@@ -46,15 +46,16 @@ describe 'Station' do
       expect(Station.list_stations(new_line.id)).to eq [new_station]
     end
   end
+  
   describe '.station_list' do
-    it 'returns all of the stations on a given line' do
+    it 'returns all of the stations on a specific line' do
       new_station = Station.new({:name => "15th & Pollock St Station"})
-      new_station2 = Station.new({:name => "Market Plaza"})
       new_station.save
+      new_station2 = Station.new({:name => "Market Plaza"})
       new_station2.save
       new_line = Line.new({:name => "15th ST Express"})
-      new_line2 = Line.new({:name => "HWY 99 Line"})
       new_line.save
+      new_line2 = Line.new({:name => "HWY 99 Line"})
       new_line2.save
       new_station.add_station_line(new_line.id)
       new_station.add_station_line(new_line2.id)
