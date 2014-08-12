@@ -104,4 +104,8 @@ def list_lines
   puts "\nPress ENTER to continue..."
   gets
 end
+
+def search_by_station
+
+end
 faux_loader

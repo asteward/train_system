@@ -46,7 +46,7 @@ describe 'Station' do
       expect(Station.list_stations(new_line.id)).to eq [new_station]
     end
   end
-  
+
   describe '.station_list' do
     it 'returns all of the stations on a specific line' do
       new_station = Station.new({:name => "15th & Pollock St Station"})
