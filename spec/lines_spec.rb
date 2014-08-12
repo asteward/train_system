@@ -52,4 +52,14 @@ describe 'Line' do
       expect(Line.list_lines(new_station.id)).to eq [new_line, new_line2]
     end
   end
+
+  describe '.search_by_line' do
+    it 'searches the database and returns a specific line' do
+      new_line = Line.new({:name => "15th ST Express"})
+      new_line.save
+      new_line2 = Line.new({:name => "HWY 99 Line"})
+      new_line2.save
+      expect(Line.search_by_line(new_line2.id)).to eq [new_line2]
+    end
+  end
 end

@@ -34,4 +34,10 @@ class Line
     end
     lines
   end
+
+  def self.search_by_line(line_id)
+    line = []
+    result = DB.exec("SELECT * FROM line WHERE id = #{line_id}").first
+    line << Line.new({:id => result['id'].to_i, :name => result['name']})
+  end
 end
