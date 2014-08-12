@@ -1,8 +1,8 @@
 class Line
   attr_accessor :id, :name
   def initialize(line_info)
-    @id = line_info['id']
-    @name = line_info['name']
+    @id = line_info[:id]
+    @name = line_info[:name]
   end
 
   def save

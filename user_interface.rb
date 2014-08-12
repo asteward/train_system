@@ -109,27 +109,40 @@ def list_lines
 end
 
 def search_stations
-  header
   list_stations
   puts "Enter Station ID to search:"
   station_id = gets.chomp.to_i
   results = Line.list_lines(station_id)
   results.each do |result|
-    puts "  #{result.id}) #{result.name}"
+    puts "  #{result.name}"
   end
   puts "\nPress ENTER to continue..."
   gets
 end
 
 def search_lines
-  header
   list_lines
   puts "Enter Line ID to search:"
   line_id = gets.chomp.to_i
   results = Station.list_stations(line_id)
   results.each do |result|
-    puts "  #{result.id}) #{result.name}"
+    puts "  #{result.name}"
   end
+  puts "\nPress ENTER to continue..."
+  gets
+end
+
+def connect_train_line
+  list_lines
+  puts "Enter Line ID to add a station:"
+  line_id = gets.chomp.to_i
+  line = Line.search_by_line(line_id).first
+  list_stations
+  puts "Enter Station ID for the #{line.name} to stop at:"
+  station_id = gets.chomp.to_i
+  station = Station.search_by_station(station_id).first
+  station.add_station_line(line.id)
+  puts "The #{line.name} will now stop at #{station.name}."
   puts "\nPress ENTER to continue..."
   gets
 end
