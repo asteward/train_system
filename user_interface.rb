@@ -35,11 +35,12 @@ def main_menu
   header
   puts '1 > Add New Station'
   puts '2 > Add New Train Line'
-  puts '3 > Find Stations on a Train Line'
-  puts '4 > Find Lines that stop at a particular Station'
+  puts '3 > View Train Line Info'
+  puts '4 > View Station Info'
   puts '5 > List all Stations'
   puts '6 > List all Train Lines'
-  puts '7 > Exit Program'
+  puts '7 > Add a Train Line to a Station'
+  puts '8 > Exit Program'
   choice = gets.chomp
   case(choice)
   when '1'
@@ -47,14 +48,16 @@ def main_menu
   when '2'
     add_line
   when '3'
-    search_by_line
+    search_lines
   when '4'
-    search_by_station
+    search_stations
   when '5'
     list_stations
   when '6'
     list_lines
   when '7'
+    connect_train_line
+  when '8'
     exit
   else
     puts "You have accessed the secret menu... Just kidding. Try again!"
@@ -105,11 +108,16 @@ def list_lines
   gets
 end
 
-def self.search_by_station
+def search_stations
   header
   list_stations
-  puts "Enter Station ID to search for:"
+  puts "Enter Station ID to search:"
   station_id = gets.chomp.to_i
-  results = DB.exec("SELECT * FROM stations WHERE id = #{station_id}").first
+  results = Line.list_lines(station_id)
+  results.each do |result|
+    puts "  #{result.id}) #{result.name}"
+  end
+  puts "\nPress ENTER to continue..."
+  gets
 end
 faux_loader
