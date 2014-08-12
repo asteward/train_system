@@ -35,11 +35,11 @@ def main_menu
   header
   puts '1 > Add New Station'
   puts '2 > Add New Train Line'
-  puts '3 > View Train Line Info'
-  puts '4 > View Station Info'
-  puts '5 > List all Stations'
-  puts '6 > List all Train Lines'
-  puts '7 > Add a Train Line to a Station'
+  puts '3 > Add a Train Line to a Station'
+  puts '4 > List all Stations'
+  puts '5 > List all Train Lines'
+  puts '6 > View Station Info'
+  puts '7 > View Train Line Info'
   puts '8 > Exit Program'
   choice = gets.chomp
   case(choice)
@@ -48,21 +48,22 @@ def main_menu
   when '2'
     add_line
   when '3'
-    search_lines
-  when '4'
-    search_stations
-  when '5'
-    list_stations
-  when '6'
-    list_lines
-  when '7'
     connect_train_line
+  when '4'
+    list_stations
+  when '5'
+    list_lines
+  when '6'
+    search_stations
+  when '7'
+    search_lines
   when '8'
     exit
   else
     puts "You have accessed the secret menu... Just kidding. Try again!"
     sleep 3
   end
+  wait
   main_menu
 end
 
@@ -73,7 +74,7 @@ def add_station
   new_station = Station.new({:name => station_name})
   new_station.save
   puts "  #{station_name} added!"
-  sleep 2
+  wait
 end
 
 def add_line
@@ -83,7 +84,6 @@ def add_line
   new_line = Line.new({:name => line_name})
   new_line.save
   puts "  #{line_name} added!"
-  sleep 2
 end
 
 def list_stations
@@ -93,8 +93,6 @@ def list_stations
   stations.each do |station|
     puts "  #{station.id}) #{station.name}"
   end
-  puts "\nPress ENTER to continue..."
-  gets
 end
 
 def list_lines
@@ -104,32 +102,30 @@ def list_lines
   lines.each do |line|
     puts "  #{line.id}) #{line.name}"
   end
-  puts "\nPress ENTER to continue..."
-  gets
 end
 
 def search_stations
   list_stations
   puts "Enter Station ID to search:"
   station_id = gets.chomp.to_i
+  station = Station.search_by_station(station_id).first
   results = Line.list_lines(station_id)
+  puts "The following train lines stop at #{station.name}:"
   results.each do |result|
     puts "  #{result.name}"
   end
-  puts "\nPress ENTER to continue..."
-  gets
 end
 
 def search_lines
   list_lines
   puts "Enter Line ID to search:"
   line_id = gets.chomp.to_i
+  line = Line.search_by_line(line_id).first
   results = Station.list_stations(line_id)
+  puts "#{line.name} will stop at these locations:"
   results.each do |result|
     puts "  #{result.name}"
   end
-  puts "\nPress ENTER to continue..."
-  gets
 end
 
 def connect_train_line
@@ -138,11 +134,14 @@ def connect_train_line
   line_id = gets.chomp.to_i
   line = Line.search_by_line(line_id).first
   list_stations
-  puts "Enter Station ID for the #{line.name} to stop at:"
+  puts "\nEnter Station ID for the #{line.name} to stop at:"
   station_id = gets.chomp.to_i
   station = Station.search_by_station(station_id).first
   station.add_station_line(line.id)
-  puts "The #{line.name} will now stop at #{station.name}."
+  puts "\nThe #{line.name} will now stop at #{station.name}."
+  end
+
+def wait
   puts "\nPress ENTER to continue..."
   gets
 end
