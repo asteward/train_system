@@ -19,7 +19,7 @@ def header
 end
 
 def faux_loader
-  puts "Checking credentials:"
+  puts "\n\nChecking credentials:"
   logging_in = ["L", "O", "G", "G", "I", "N", "G", " ", "I", "N", ".", ".", "."]
   logging_in.each do |letter|
     print letter
@@ -105,7 +105,11 @@ def list_lines
   gets
 end
 
-def search_by_station
-
+def self.search_by_station
+  header
+  list_stations
+  puts "Enter Station ID to search for:"
+  station_id = gets.chomp.to_i
+  results = DB.exec("SELECT * FROM stations WHERE id = #{station_id}").first
 end
 faux_loader

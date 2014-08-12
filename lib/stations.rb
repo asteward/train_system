@@ -38,4 +38,10 @@ class Station
     end
     line_stops
   end
+
+  def self.search_by_station(station_id)
+    station = []
+    result = DB.exec("SELECT * FROM station WHERE id = #{station_id}").first
+    station << Station.new({:id => result['id'].to_i, :name => result['name']})
+  end
 end

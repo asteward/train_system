@@ -63,4 +63,14 @@ describe 'Station' do
       expect(Station.list_stations(new_line.id)).to eq [new_station, new_station2]
     end
   end
+
+  describe '.search_by_station' do
+    it 'searches the database and returns a specific station' do
+      new_station = Station.new({:name => "15th & Pollock St Station"})
+      new_station.save
+      new_station2 = Station.new({:name => "Market Plaza"})
+      new_station2.save
+      expect(Station.search_by_station(new_station2.id)).to eq [new_station2]
+    end
+  end
 end
