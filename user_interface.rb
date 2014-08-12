@@ -120,4 +120,17 @@ def search_stations
   puts "\nPress ENTER to continue..."
   gets
 end
+
+def search_lines
+  header
+  list_lines
+  puts "Enter Line ID to search:"
+  line_id = gets.chomp.to_i
+  results = Station.list_stations(line_id)
+  results.each do |result|
+    puts "  #{result.id}) #{result.name}"
+  end
+  puts "\nPress ENTER to continue..."
+  gets
+end
 faux_loader
